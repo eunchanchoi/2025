@@ -1,45 +1,24 @@
 import streamlit as st
 
-# ===== CSS로 배경, 버튼, 글자 스타일 변경 =====
-st.markdown(
-    """
-    <style>
-    /* 배경 색 */
-    .stApp {
-        background: linear-gradient(135deg, #FFD3A5 0%, #FD6585 100%);
-        color: white;
-        font-family: 'Arial';
-    }
-    /* 버튼 스타일 */
-    div.stButton > button:first-child {
-        background-color: #ff6f61;
-        color: white;
-        border-radius: 10px;
-        height: 3em;
-        font-size: 1.2em;
-        font-weight: bold;
-        border: 2px solid white;
-        transition: 0.3s;
-    }
-    div.stButton > button:first-child:hover {
-        background-color: #ff3b2e;
-        transform: scale(1.05);
-    }
-    /* 제목 스타일 */
-    h1 {
-        text-align: center;
-        font-size: 3em !important;
-        font-weight: bold;
-    }
-    /* 선택 박스 */
-    .stSelectbox label {
-        font-size: 1.2em;
-        font-weight: bold;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+# ===== MBTI별 파스텔톤 배경색 데이터 =====
+mbti_colors = {
+    "INTJ": "#C3B1E1",  # 연보라
+    "INTP": "#B5EAD7",  # 민트
+    "ENTJ": "#FFDAC1",  # 살구
+    "ENTP": "#FFB7B2",  # 코랄핑크
+    "INFJ": "#E2F0CB",  # 연두
+    "INFP": "#FBC4AB",  # 피치
+    "ENFJ": "#FFECB3",  # 크림옐로우
+    "ENFP": "#FFD6E0",  # 연핑크
+    "ISTJ": "#D0E6A5",  # 파스텔 라임
+    "ISFJ": "#AED9E0",  # 하늘민트
+    "ESTJ": "#F7D9C4",  # 연살구
+    "ESFJ": "#FFF5BA",  # 파스텔 옐로우
+    "ISTP": "#B5EAEA",  # 파스텔 블루
+    "ISFP": "#FFB5E8",  # 연분홍
+    "ESTP": "#B8F2E6",  # 연청록
+    "ESFP": "#F2B5D4",  # 핑크퍼플
+}
 
 # ===== MBTI별 직업 데이터 =====
 mbti_jobs = {
@@ -62,7 +41,8 @@ mbti_jobs = {
 }
 
 # ===== 앱 제목 =====
-st.title("💼✨ MBTI 기반 직업 추천 앱 ✨💼")
+st.set_page_config(page_title="MBTI 직업 추천", page_icon="💼", layout="centered")
+st.title("💼 MBTI 기반 직업 추천 앱 💼")
 st.write("**당신의 MBTI에 맞는 직업 추천을 받아보세요! 🔮**")
 
 # ===== MBTI 선택 =====
@@ -71,8 +51,37 @@ mbti = st.selectbox(
     list(mbti_jobs.keys())
 )
 
+# ===== 배경색 적용 (선택한 MBTI 색상) =====
+bg_color = mbti_colors.get(mbti, "#FFFFFF")
+st.markdown(
+    f"""
+    <style>
+    .stApp {{
+        background-color: {bg_color};
+        color: #333333;
+        font-family: 'Arial';
+    }}
+    div.stButton > button:first-child {{
+        background-color: white;
+        color: #333333;
+        border-radius: 10px;
+        height: 3em;
+        font-size: 1.1em;
+        font-weight: bold;
+        border: 2px solid #ccc;
+        transition: 0.3s;
+    }}
+    div.stButton > button:first-child:hover {{
+        background-color: #f0f0f0;
+        transform: scale(1.05);
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # ===== 버튼 클릭 시 결과 출력 =====
-if st.button("🌟 직업 추천 받기 🌟"):
+if st.button("🌸 직업 추천 받기 🌸"):
     jobs = mbti_jobs.get(mbti, [])
     if jobs:
         st.success(f"🎯 **{mbti} 유형 추천 직업**")
