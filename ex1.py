@@ -1,3 +1,2 @@
 import streamlit as st
-st.title('welcome to my website')
-st.write('hello streamlit!!')
+st.title('안녕하세요. 저는 최은찬입니다.')
