@@ -1,46 +1,86 @@
 import streamlit as st
 
-# MBTI별 직업 추천 데이터
+# ===== CSS로 배경, 버튼, 글자 스타일 변경 =====
+st.markdown(
+    """
+    <style>
+    /* 배경 색 */
+    .stApp {
+        background: linear-gradient(135deg, #FFD3A5 0%, #FD6585 100%);
+        color: white;
+        font-family: 'Arial';
+    }
+    /* 버튼 스타일 */
+    div.stButton > button:first-child {
+        background-color: #ff6f61;
+        color: white;
+        border-radius: 10px;
+        height: 3em;
+        font-size: 1.2em;
+        font-weight: bold;
+        border: 2px solid white;
+        transition: 0.3s;
+    }
+    div.stButton > button:first-child:hover {
+        background-color: #ff3b2e;
+        transform: scale(1.05);
+    }
+    /* 제목 스타일 */
+    h1 {
+        text-align: center;
+        font-size: 3em !important;
+        font-weight: bold;
+    }
+    /* 선택 박스 */
+    .stSelectbox label {
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# ===== MBTI별 직업 데이터 =====
 mbti_jobs = {
-    "INTJ": ["데이터 과학자", "전략 컨설턴트", "연구원"],
-    "INTP": ["소프트웨어 개발자", "이공계 연구원", "발명가"],
-    "ENTJ": ["기업가", "경영 컨설턴트", "프로젝트 매니저"],
-    "ENTP": ["마케팅 디렉터", "벤처 창업가", "기획자"],
-    "INFJ": ["심리상담가", "작가", "교수"],
-    "INFP": ["예술가", "작곡가", "사회복지사"],
-    "ENFJ": ["교사", "인사 전문가", "홍보 전문가"],
-    "ENFP": ["광고 기획자", "이벤트 플래너", "작가"],
-    "ISTJ": ["회계사", "행정 공무원", "변호사"],
-    "ISFJ": ["간호사", "교사", "사서"],
-    "ESTJ": ["군 장교", "경영자", "세무사"],
-    "ESFJ": ["초등교사", "인사담당자", "사회복지사"],
-    "ISTP": ["기계공", "파일럿", "응급 구조사"],
-    "ISFP": ["디자이너", "사진작가", "물리치료사"],
-    "ESTP": ["영업 전문가", "이벤트 코디네이터", "스포츠 코치"],
-    "ESFP": ["배우", "가수", "여행 가이드"]
+    "INTJ": ["🧠 데이터 과학자", "📊 전략 컨설턴트", "🔬 연구원"],
+    "INTP": ["💻 소프트웨어 개발자", "🧪 이공계 연구원", "💡 발명가"],
+    "ENTJ": ["🏢 기업가", "📈 경영 컨설턴트", "📋 프로젝트 매니저"],
+    "ENTP": ["🎯 마케팅 디렉터", "🚀 벤처 창업가", "📝 기획자"],
+    "INFJ": ["💬 심리상담가", "✍️ 작가", "🎓 교수"],
+    "INFP": ["🎨 예술가", "🎼 작곡가", "🤝 사회복지사"],
+    "ENFJ": ["👩‍🏫 교사", "🧑‍💼 인사 전문가", "📢 홍보 전문가"],
+    "ENFP": ["📺 광고 기획자", "🎉 이벤트 플래너", "📚 작가"],
+    "ISTJ": ["📑 회계사", "🏛 행정 공무원", "⚖ 변호사"],
+    "ISFJ": ["💉 간호사", "📖 교사", "📚 사서"],
+    "ESTJ": ["🎖 군 장교", "💼 경영자", "📊 세무사"],
+    "ESFJ": ["👩‍🏫 초등교사", "🧑‍💼 인사담당자", "🤝 사회복지사"],
+    "ISTP": ["🔧 기계공", "✈️ 파일럿", "🚑 응급 구조사"],
+    "ISFP": ["🎨 디자이너", "📸 사진작가", "👐 물리치료사"],
+    "ESTP": ["💼 영업 전문가", "🎯 이벤트 코디네이터", "🏋️ 스포츠 코치"],
+    "ESFP": ["🎭 배우", "🎤 가수", "🧳 여행 가이드"]
 }
 
-# 앱 제목
-st.title("💼 MBTI 기반 직업 추천 앱")
-st.write("당신의 MBTI에 맞는 직업 추천을 받아보세요!")
+# ===== 앱 제목 =====
+st.title("💼✨ MBTI 기반 직업 추천 앱 ✨💼")
+st.write("**당신의 MBTI에 맞는 직업 추천을 받아보세요! 🔮**")
 
-# MBTI 입력 받기
+# ===== MBTI 선택 =====
 mbti = st.selectbox(
-    "당신의 MBTI 유형을 선택하세요:",
+    "👇 당신의 MBTI 유형을 선택하세요:",
     list(mbti_jobs.keys())
 )
 
-# 버튼 클릭 시 결과 출력
-if st.button("직업 추천 받기"):
+# ===== 버튼 클릭 시 결과 출력 =====
+if st.button("🌟 직업 추천 받기 🌟"):
     jobs = mbti_jobs.get(mbti, [])
     if jobs:
-        st.success(f"✅ {mbti} 유형 추천 직업")
+        st.success(f"🎯 **{mbti} 유형 추천 직업**")
         for job in jobs:
             st.write(f"- {job}")
     else:
-        st.error("해당 MBTI 유형에 대한 데이터가 없습니다.")
+        st.error("⚠ 해당 MBTI 유형에 대한 데이터가 없습니다.")
 
-# 추가 정보 섹션
+# ===== 추가 정보 =====
 st.write("---")
-st.write("ℹ️ **Tip**: MBTI는 참고용 도구일 뿐이며, 진로 선택은 다양한 경험과 자기 이해를 기반으로 해야 합니다.")
-
+st.info("💡 MBTI는 참고용 도구일 뿐이며, 진로 선택은 다양한 경험과 자기 이해를 기반으로 해야 합니다.")
