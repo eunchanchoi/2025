@@ -11,7 +11,7 @@ foods = [
     ("비빔밥", "images.bibim.jpg"),
     ("비빔밥", "images.bossam.jpg"),
     ("불고기", "images.bulgogi.jpg"),
-    ("치킨", "images.chicken.jpg"),
+    ("치킨", "images.chicken.jpg.jpg"),
     ("된장찌개", "images.doenjang.jpg"),
     ("갈비찜", "images.galbijjim.jpg"),
     ("감자탕", "images.gamjatang.jpg"),
