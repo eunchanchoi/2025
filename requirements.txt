@@ -1,3 +1,2 @@
 
-koreanizd_matplotlib
 pillow
