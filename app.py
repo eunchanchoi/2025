@@ -4,7 +4,7 @@ import random
 st.set_page_config(page_title="✨나만의 발명품 추천✨", page_icon="🛠️", layout="centered")
 
 st.markdown("""
-# 🧪💡 나만의 맞춤 발명품 추천 앱 🌟🚀
+# 🧪💡 일상속 기발한 발명품 추천(DAIN) 🌟🚀
 > 일상 속 필요와 상상을 기반으로 나에게 딱 맞는 발명품을 추천해드립니다!
 """)
 
