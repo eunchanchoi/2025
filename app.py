@@ -84,7 +84,7 @@ questions = {
 
 # Streamlit UI
 st.set_page_config(page_title="💡✨ 나를 위한 발명품 추천기 ✨💡", page_icon="🚀", layout="centered")
-st.markdown("<h1 style='text-align:center; color:#FF69B4;'>💫 나만의 기발한 발명품 추천기 💫</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align:center; color:#FF69B4;'>🤖 일상 속 나만의 기발한 발명품 테스트 (DAIN) ✨</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align:center;'>각 질문에서 가장 적합한 옵션을 선택하면 당신에게 딱 맞는 발명품을 추천합니다! 🌟</h3>", unsafe_allow_html=True)
 
 # 사용자 선택 저장
