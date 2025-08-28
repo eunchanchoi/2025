@@ -6,22 +6,22 @@ st.set_page_config(page_title="음식 이상형 월드컵", page_icon="🍲", la
 # --- 음식 데이터 ---
 food_data = {
     "한식": [
-        ("비빔밥", "bibimbap.jpeg"),
-        ("불고기", "bulgogi.jpeg"),
-        ("김치찌개", "kimchi.jpeg"),
-        ("삼겹살", "samgyeopsal.jpeg"),
-        ("떡볶이", "tteokbokki.jpeg"),
-        ("삼계탕", "samgyetang.jpeg"),
-        ("잡채", "japchae.jpeg"),
-        ("갈비찜", "galbijjim.jpeg"),
-        ("김밥", "gimbap.jpeg"),
-        ("파전", "pajeon.jpeg"),
-        ("냉면", "naengmyeon.jpeg"),
-        ("순두부찌개", "soondubu.jpeg"),
-        ("라면", "ramyeon.jpeg"),
-        ("칼국수", "kalguksu.jpeg"),
-        ("제육볶음", "jeyuk.jpeg"),
-        ("콩나물국밥", "gokbap.jpeg"),
+        ("name""비빔밥", "img": "bibimbap.jpeg"),
+        ("name""불고기", "img": "bulgogi.jpeg"),
+        ("name":"김치찌개", "img": "kimchi.jpeg"),
+        ("name""삼겹살", "img": "samgyeopsal.jpeg"),
+        ("name""떡볶이", "img": "tteokbokki.jpeg"),
+        ("name""삼계탕", "img": "samgyetang.jpeg"),
+        ("name""잡채", "img": "japchae.jpeg"),
+        ("name""갈비찜", "img": "galbijjim.jpeg"),
+        ("name""김밥", "img": "gimbap.jpeg"),
+        ("name""파전", "img": "pajeon.jpeg"),
+        ("name""냉면", "img": "naengmyeon.jpeg"),
+        ("name""순두부찌개", "img": "soondubu.jpeg"),
+        ("name""라면", "img": "ramyeon.jpeg"),
+        ("name""칼국수", "img": "kalguksu.jpeg"),
+        ("name""제육볶음", "img": "jeyuk.jpeg"),
+        ("name""콩나물국밥", "img": "gokbap.jpeg"),
     ],
 }
 
@@ -44,27 +44,34 @@ if st.session_state.stage == "select_type":
     if st.button("시작"):
         st.session_state.food_list = random.sample(food_data[choice], 16)
         st.session_state.stage = "tournament"
+        st.experimental_rerun()
 
 # 토너먼트 화면
 elif st.session_state.stage == "tournament":
     idx = st.session_state.round_index
     food_pair = st.session_state.food_list[idx:idx+2]
 
+    # 남은 음식이 1개뿐이면 자동으로 다음 라운드로
+    if len(food_pair) == 1:
+        st.session_state.next_round.append(food_pair[0])
+        st.session_state.round_index += 1
+        st.experimental_rerun()
+
     col1, col2 = st.columns(2)
 
     with col1:
+        st.image(food_pair[0]["img"], use_column_width=True)
         if st.button(food_pair[0]["name"]):
             st.session_state.next_round.append(food_pair[0])
             st.session_state.round_index += 2
             st.experimental_rerun()
-        st.image(food_pair[0]["img"], use_column_width=True)
 
     with col2:
+        st.image(food_pair[1]["img"], use_column_width=True)
         if st.button(food_pair[1]["name"]):
             st.session_state.next_round.append(food_pair[1])
             st.session_state.round_index += 2
             st.experimental_rerun()
-        st.image(food_pair[1]["img"], use_column_width=True)
 
     # 라운드 끝 처리
     if st.session_state.round_index >= len(st.session_state.food_list):
