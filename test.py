@@ -73,6 +73,24 @@ if "stage" not in st.session_state:
 st.title("🍲 음식 이상형 월드컵")
 
 # --- 시작 화면 ---
+if "stage" not in st.session_state:
+    st.session_state.stage = "start"
+if "category" not in st.session_state:
+    st.session_state.category = ""
+if "current_round" not in st.session_state:
+    st.session_state.current_round = []
+if "next_round" not in st.session_state:
+    st.session_state.next_round = []
+if "match_index" not in st.session_state:
+    st.session_state.match_index = 0
+if "round_name" not in st.session_state:
+    st.session_state.round_name = ""
+
+# 풍선 애니메이션 (마지막 선택 시)
+def show_confetti():
+    st.balloons()
+
+# 시작 화면
 if st.session_state.stage == "start":
     st.subheader("원하는 음식을 선택하세요!")
     category = st.radio("카테고리 선택", ["아래 중에서 선택 하십시오","한식", "양식", "일식"])
@@ -82,63 +100,52 @@ if st.session_state.stage == "start":
             st.warning("⚠️ 음식 종류를 선택해주세요!")
         else:
             st.session_state.category = category
-            st.session_state.current_round = random.sample(foods[category], 16)
+            st.session_state.current_round = random.sample(foods[category], 16)  # 16강
             st.session_state.round_name = "16강"
             st.session_state.match_index = 0
             st.session_state.next_round = []
             st.session_state.stage = "playing"
             st.experimental_rerun()
 
-
-# --- 게임 진행 ---
+# 게임 진행 화면
 elif st.session_state.stage == "playing":
-    current = st.session_state.current_round
-    idx = st.session_state.match_index * 2
-
-    # 라운드 종료 체크
-    if idx >= len(current):
+    st.subheader(f"{st.session_state.round_name} - 음식 이상형 월드컵")
+    
+    idx = st.session_state.match_index
+    current_pair = st.session_state.current_round[idx:idx+2]
+    
+    col1, col2 = st.columns(2)
+    
+    if col1.button(current_pair[0]):
+        st.session_state.next_round.append(current_pair[0])
+        st.session_state.match_index += 2
+        st.experimental_rerun()
+    
+    if col2.button(current_pair[1]):
+        st.session_state.next_round.append(current_pair[1])
+        st.session_state.match_index += 2
+        st.experimental_rerun()
+    
+    # 라운드 끝 처리
+    if st.session_state.match_index >= len(st.session_state.current_round):
         if len(st.session_state.next_round) == 1:
-            st.session_state.stage = "end"
+            st.session_state.stage = "finished"
+            st.experimental_rerun()
         else:
-            st.session_state.current_round = st.session_state.next_round
+            st.session_state.current_round = st.session_state.next_round.copy()
             st.session_state.next_round = []
             st.session_state.match_index = 0
+            # 라운드 이름 변경
             if len(st.session_state.current_round) == 8:
                 st.session_state.round_name = "8강"
             elif len(st.session_state.current_round) == 4:
                 st.session_state.round_name = "4강"
             elif len(st.session_state.current_round) == 2:
                 st.session_state.round_name = "결승"
-        st.experimental_rerun()
+            st.experimental_rerun()
 
-    else:
-        left = current[idx]
-        right = current[idx+1]
-
-        st.subheader(f"⚔️ {st.session_state.round_name} - {st.session_state.match_index+1} / {len(current)//2} 경기")
-
-        col1, col2 = st.columns(2)
-        with col1:
-            st.image(left[1], use_container_width=True)
-            if st.button(left[0]):
-                st.session_state.next_round.append(left)
-                st.session_state.match_index += 1
-                st.experimental_rerun()
-
-        with col2:
-            st.image(right[1], use_container_width=True)
-            if st.button(right[0]):
-                st.session_state.next_round.append(right)
-                st.session_state.match_index += 1
-                st.experimental_rerun()
-
-# --- 최종 승자 ---
-elif st.session_state.stage == "end":
-    winner = st.session_state.next_round[0]
-    st.success(f"🎉 우승 음식은 바로... **{winner[0]}** 입니다! 🎉")
-    st.image(winner[1], use_container_width=True)
-    st.balloons()
-
-    if st.button("다시하기"):
-        st.session_state.stage = "start"
-        st.experimental_rerun()
+# 최종 승리자 화면
+elif st.session_state.stage == "finished":
+    winner = st.session_state.next_round[0] if st.session_state.next_round else st.session_state.current_round[0]
+    st.subheader(f"🏆 최종 승리 음식: {winner} 🏆")
+    show_confetti()
