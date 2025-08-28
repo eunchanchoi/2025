@@ -1,114 +1,139 @@
 import streamlit as st
 import random
-import time
 
-# 페이지 설정
-st.set_page_config(page_title="🍜 음식 이상형 월드컵", layout="wide")
-st.title("🍜 음식 이상형 월드컵")
+st.set_page_config(page_title="음식 이상형 월드컵", page_icon="🍲", layout="wide")
 
-# 음식 데이터 (이름, 이미지 경로)
-foods = [
-    ("비빔밥", "images.bibim.jpg"),
-    ("비빔밥", "images.bossam.jpg"),
-    ("불고기", "images.bulgogi.jpg"),
-    ("치킨", "images.chicken.jpg.jpg"),
-    ("된장찌개", "images.doenjang.jpg"),
-    ("갈비찜", "images.galbijjim.jpg"),
-    ("감자탕", "images.gamjatang.jpg"),
-    ("김밥", "images.gimpbap.jpg"),
-    ("곱창구이", "images.gopchang.jpg"),
-    ("잡채", "images.japchae.jpg"),
-    ("제육볶음", "images.jeyuk.jpg"),
-    ("족발", "images.jokbal.jpg"),
-    ("김치찌개", "images.kimchi.jpg"),
-    ("냉면", "images.naengmyeon.jpg"),
-    ("파전", "images.pajeon.jpg"),
-    ("삼겹살", "images.samgyepsal.jpg"),
-    ("삼계탕", "images.samgyetang.jpg"),
-    ("순두부찌개", "images.sundubu.jpg"),
-    ("떡볶이", "images.tteokbokki.jpg"),
-    ("해물탕", "images.haemultang.jpg"),
-]
+# --- 음식 데이터 ---
+foods = {
+    "한식": [
+        ("비빔밥", "images/bibimbap.jpg"),
+        ("불고기", "images/bulgogi.jpg"),
+        ("김치찌개", "images/kimchi_stew.jpg"),
+        ("삼겹살", "images/samgyeopsal.jpg"),
+        ("떡볶이", "images/tteokbokki.jpg"),
+        ("삼계탕", "images/samgyetang.jpg"),
+        ("잡채", "images/japchae.jpg"),
+        ("갈비찜", "images/galbijjim.jpg"),
+        ("김밥", "images/gimbap.jpg"),
+        ("파전", "images/pajeon.jpg"),
+        ("냉면", "images/naengmyeon.jpg"),
+        ("순두부찌개", "images/soondubu.jpg"),
+        ("라면", "images/ramyeon.jpg"),
+        ("칼국수", "images/kalguksu.jpg"),
+        ("제육볶음", "images/jeyuk.jpg"),
+        ("콩나물국밥", "images/kongnamul.jpg"),
+    ],
+    "양식": [
+        ("피자", "images/pizza.jpg"),
+        ("스파게티", "images/spaghetti.jpg"),
+        ("스테이크", "images/steak.jpg"),
+        ("햄버거", "images/burger.jpg"),
+        ("리조또", "images/risotto.jpg"),
+        ("샐러드", "images/salad.jpg"),
+        ("치킨", "images/fried_chicken.jpg"),
+        ("라자냐", "images/lasagna.jpg"),
+        ("핫도그", "images/hotdog.jpg"),
+        ("타코", "images/taco.jpg"),
+        ("샌드위치", "images/sandwich.jpg"),
+        ("감바스", "images/gambas.jpg"),
+        ("치즈볼", "images/cheeseball.jpg"),
+        ("브라우니", "images/brownie.jpg"),
+        ("파스타", "images/pasta.jpg"),
+        ("그라탕", "images/gratin.jpg"),
+    ],
+    "일식": [
+        ("초밥", "images/sushi.jpg"),
+        ("라멘", "images/ramen.jpg"),
+        ("돈까스", "images/tonkatsu.jpg"),
+        ("우동", "images/udon.jpg"),
+        ("규동", "images/gyudon.jpg"),
+        ("오코노미야끼", "images/okonomiyaki.jpg"),
+        ("타코야끼", "images/takoyaki.jpg"),
+        ("가라아게", "images/karaage.jpg"),
+        ("사시미", "images/sashimi.jpg"),
+        ("텐동", "images/tendon.jpg"),
+        ("규카츠", "images/gyukatsu.jpg"),
+        ("오니기리", "images/onigiri.jpg"),
+        ("카레라이스", "images/curry_rice.jpg"),
+        ("쇼유라멘", "images/shoyu_ramen.jpg"),
+        ("미소시루", "images/miso_soup.jpg"),
+        ("야키소바", "images/yakisoba.jpg"),
+    ]
+}
 
-# 세션 상태 초기화
-if "round_foods" not in st.session_state:
-    st.session_state.round_foods = random.sample(foods, len(foods))
+# --- 초기 세팅 ---
+if "stage" not in st.session_state:
+    st.session_state.stage = "start"  # start, playing, end
+    st.session_state.category = None
+    st.session_state.current_round = []
     st.session_state.next_round = []
-    st.session_state.stage = 1
-    st.session_state.round_num = len(st.session_state.round_foods)
-    st.session_state.total_round = len(st.session_state.round_foods)
+    st.session_state.round_name = "16강"
+    st.session_state.match_index = 0
 
-# CSS 애니메이션 스타일
-st.markdown("""
-<style>
-.choice-img {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
-.choice-img:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 0px 15px rgba(255, 165, 0, 0.7);
-}
-.fade-out {
-    animation: fadeOut 0.5s forwards;
-}
-@keyframes fadeOut {
-    to {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-}
-</style>
-""", unsafe_allow_html=True)
+st.title("🍲 음식 이상형 월드컵")
 
-# 진행 중일 때
-if st.session_state.stage == 1:
-    # 진행률 표시
-    progress = (1 - len(st.session_state.round_foods) / st.session_state.total_round) * 100
-    st.progress(progress / 100)
-
-    st.subheader(f"⚡ {st.session_state.round_num}강")
-
-    if len(st.session_state.round_foods) >= 2:
-        col1, col2 = st.columns(2)
-        food1 = st.session_state.round_foods[0]
-        food2 = st.session_state.round_foods[1]
-
-        def select_food(food):
-            # 선택 애니메이션 효과
-            st.session_state.selected_food = food
-            time.sleep(0.3)
-            st.session_state.next_round.append(food)
-            st.session_state.round_foods = st.session_state.round_foods[2:]
-
-        with col1:
-            if st.button(food1[0]):
-                select_food(food1)
-            st.image(food1[1], caption=food1[0], use_container_width=True, output_format="auto")
-
-        with col2:
-            if st.button(food2[0]):
-                select_food(food2)
-            st.image(food2[1], caption=food2[0], use_container_width=True, output_format="auto")
-
-    else:
-        st.session_state.round_foods = st.session_state.next_round
+# --- 시작 화면 ---
+if st.session_state.stage == "start":
+    st.subheader("원하는 음식을 선택하세요!")
+    category = st.radio("카테고리 선택", ["한식", "양식", "일식"])
+    if st.button("시작하기"):
+        st.session_state.category = category
+        st.session_state.current_round = random.sample(foods[category], 16)
+        st.session_state.round_name = "16강"
+        st.session_state.match_index = 0
         st.session_state.next_round = []
-        st.session_state.round_num = len(st.session_state.round_foods)
-
-        if len(st.session_state.round_foods) == 1:
-            st.session_state.stage = 2
-        else:
-            st.experimental_rerun()
-
-# 우승자 화면
-elif st.session_state.stage == 2:
-    winner = st.session_state.round_foods[0]
-    st.success("🎉 최종 우승!")
-    st.image(winner[1], caption=winner[0], use_container_width=True)
-    st.markdown(f"**🏆 {winner[0]}** 우승!")
-
-    if st.button("다시 시작하기"):
-        st.session_state.clear()
+        st.session_state.stage = "playing"
         st.experimental_rerun()
 
+# --- 게임 진행 ---
+elif st.session_state.stage == "playing":
+    current = st.session_state.current_round
+    idx = st.session_state.match_index * 2
+
+    # 라운드 종료 체크
+    if idx >= len(current):
+        if len(st.session_state.next_round) == 1:
+            st.session_state.stage = "end"
+        else:
+            st.session_state.current_round = st.session_state.next_round
+            st.session_state.next_round = []
+            st.session_state.match_index = 0
+            if len(st.session_state.current_round) == 8:
+                st.session_state.round_name = "8강"
+            elif len(st.session_state.current_round) == 4:
+                st.session_state.round_name = "4강"
+            elif len(st.session_state.current_round) == 2:
+                st.session_state.round_name = "결승"
+        st.experimental_rerun()
+
+    else:
+        left = current[idx]
+        right = current[idx+1]
+
+        st.subheader(f"⚔️ {st.session_state.round_name} - {st.session_state.match_index+1} / {len(current)//2} 경기")
+
+        col1, col2 = st.columns(2)
+        with col1:
+            st.image(left[1], use_container_width=True)
+            if st.button(left[0]):
+                st.session_state.next_round.append(left)
+                st.session_state.match_index += 1
+                st.experimental_rerun()
+
+        with col2:
+            st.image(right[1], use_container_width=True)
+            if st.button(right[0]):
+                st.session_state.next_round.append(right)
+                st.session_state.match_index += 1
+                st.experimental_rerun()
+
+# --- 최종 승자 ---
+elif st.session_state.stage == "end":
+    winner = st.session_state.next_round[0]
+    st.success(f"🎉 우승 음식은 바로... **{winner[0]}** 입니다! 🎉")
+    st.image(winner[1], use_container_width=True)
+    st.balloons()
+
+    if st.button("다시하기"):
+        st.session_state.stage = "start"
+        st.experimental_rerun()
