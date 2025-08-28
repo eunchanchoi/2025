@@ -25,7 +25,9 @@ foods = {
     ],
 }
 
-# --- 초기 세팅 ---
+(2)
+        with col1:
+            if st.button(food1, use_container# --- 초기 세팅 ---
 if "page" not in st.session_state:
     st.session_state.page = "home"
 if "category" not in st.session_state:
@@ -53,9 +55,7 @@ elif st.session_state.page == "worldcup":
         food1, food2 = candidates[0], candidates[1]
         st.subheader(f"Round {st.session_state.round}")
 
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.button(food1, use_container_width=True):
+        col1, col2 = st.columns_width=True):
                 st.session_state.candidates = candidates[1:]  # food1 선택
                 st.session_state.round += 1
                 st.experimental_rerun()
