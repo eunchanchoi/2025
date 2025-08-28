@@ -76,14 +76,19 @@ st.title("🍲 음식 이상형 월드컵")
 if st.session_state.stage == "start":
     st.subheader("원하는 음식을 선택하세요!")
     category = st.radio("카테고리 선택", ["아래 중에서 선택 하십시오","한식", "양식", "일식"])
+    
     if st.button("시작하기"):
-        st.session_state.category = category
-        st.session_state.current_round = random.sample(foods[category], 16)
-        st.session_state.round_name = "16강"
-        st.session_state.match_index = 0
-        st.session_state.next_round = []
-        st.session_state.stage = "playing"
-        st.experimental_rerun()
+        if category == "아래 중에서 선택 하십시오":
+            st.warning("⚠️ 음식 종류를 선택해주세요!")
+        else:
+            st.session_state.category = category
+            st.session_state.current_round = random.sample(foods[category], 16)
+            st.session_state.round_name = "16강"
+            st.session_state.match_index = 0
+            st.session_state.next_round = []
+            st.session_state.stage = "playing"
+            st.experimental_rerun()
+
 
 # --- 게임 진행 ---
 elif st.session_state.stage == "playing":
