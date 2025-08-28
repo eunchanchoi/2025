@@ -23,42 +23,6 @@ foods = {
         ("제육볶음", "jeyuk.jpeg"),
         ("콩나물국밥", "gokbap.jpeg"),
     ],
-    "양식": [
-        ("피자", "images/pizza.jpg"),
-        ("스파게티", "images/spaghetti.jpg"),
-        ("스테이크", "images/steak.jpg"),
-        ("햄버거", "images/burger.jpg"),
-        ("리조또", "images/risotto.jpg"),
-        ("샐러드", "images/salad.jpg"),
-        ("치킨", "images/fried_chicken.jpg"),
-        ("라자냐", "images/lasagna.jpg"),
-        ("핫도그", "images/hotdog.jpg"),
-        ("타코", "images/taco.jpg"),
-        ("샌드위치", "images/sandwich.jpg"),
-        ("감바스", "images/gambas.jpg"),
-        ("치즈볼", "images/cheeseball.jpg"),
-        ("브라우니", "images/brownie.jpg"),
-        ("파스타", "images/pasta.jpg"),
-        ("그라탕", "images/gratin.jpg"),
-    ],
-    "일식": [
-        ("초밥", "images/sushi.jpg"),
-        ("라멘", "images/ramen.jpg"),
-        ("돈까스", "images/tonkatsu.jpg"),
-        ("우동", "images/udon.jpg"),
-        ("규동", "images/gyudon.jpg"),
-        ("오코노미야끼", "images/okonomiyaki.jpg"),
-        ("타코야끼", "images/takoyaki.jpg"),
-        ("가라아게", "images/karaage.jpg"),
-        ("사시미", "images/sashimi.jpg"),
-        ("텐동", "images/tendon.jpg"),
-        ("규카츠", "images/gyukatsu.jpg"),
-        ("오니기리", "images/onigiri.jpg"),
-        ("카레라이스", "images/curry_rice.jpg"),
-        ("쇼유라멘", "images/shoyu_ramen.jpg"),
-        ("미소시루", "images/miso_soup.jpg"),
-        ("야키소바", "images/yakisoba.jpg"),
-    ]
 }
 
 # --- 초기 세팅 ---
@@ -130,3 +94,4 @@ elif st.session_state.page == "worldcup":
             st.session_state.page = "home"
             st.session_state.round = 1
             st.experimental_rerun()
+
