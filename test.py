@@ -60,18 +60,18 @@ elif st.session_state.stage == "tournament":
     col1, col2 = st.columns(2)
 
     with col1:
-        st.image(food_pair[0]["img"], use_column_width=True)
-        if st.button(food_pair[0]["name"]):
-            st.session_state.next_round.append(food_pair[0])
-            st.session_state.round_index += 2
-            st.experimental_rerun()
+    st.image(food_pair[0]["img"], use_column_width=True)
+    if st.button(food_pair[0]["name"], key=f"{idx}_0"):
+        st.session_state.next_round.append(food_pair[0])
+        st.session_state.round_index += 2
+        st.experimental_rerun()  # 여기서만 호출
 
-    with col2:
-        st.image(food_pair[1]["img"], use_column_width=True)
-        if st.button(food_pair[1]["name"]):
-            st.session_state.next_round.append(food_pair[1])
-            st.session_state.round_index += 2
-            st.experimental_rerun()
+with col2:
+    st.image(food_pair[1]["img"], use_column_width=True)
+    if st.button(food_pair[1]["name"], key=f"{idx}_1"):
+        st.session_state.next_round.append(food_pair[1])
+        st.session_state.round_index += 2
+        st.experimental_rerun()  # 여기서만 호출
 
     # 라운드 끝 처리
     if st.session_state.round_index >= len(st.session_state.food_list):
