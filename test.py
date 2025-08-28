@@ -62,79 +62,71 @@ foods = {
 }
 
 # --- 초기 세팅 ---
-if 'stage' not in st.session_state:
-    st.session_state.stage = "start"
+if "page" not in st.session_state:
+    st.session_state.page = "home"
+if "category" not in st.session_state:
     st.session_state.category = None
-    st.session_state.current_round = []
-    st.session_state.round_name = ""
-    st.session_state.match_index = 0
-    st.session_state.next_round = []
-    st.session_state.winner = None
+if "candidates" not in st.session_state:
+    st.session_state.candidates = []
+if "round" not in st.session_state:
+    st.session_state.round = 1
 
-st.title("🍴 음식 이상형 월드컵 16강 🍴")
+# -------------------------------
+# 홈 화면
+# -------------------------------
+if st.session_state.page == "home":
+    st.title("🍴 음식 이상형 월드컵")
+    st.subheader("원하는 카테고리를 선택하세요!")
 
-# 시작 페이지
-if st.session_state.stage == "start":
-    st.subheader("원하는 음식을 선택하세요!")
-    category = st.radio("카테고리 선택", ["아래 중에서 선택하십시오", "한식", "양식", "일식"])
-    
-    if st.button("시작하기"):
-        if category == "아래 중에서 선택하십시오":
-            st.warning("카테고리를 선택해주세요!")
-        else:
-            st.session_state.category = category
-            st.session_state.current_round = random.sample(foods[category], 16)
-            st.session_state.round_name = "16강"
-            st.session_state.match_index = 0
-            st.session_state.next_round = []
-            st.session_state.stage = "playing"
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        if st.button("양식"):
+            st.session_state.category = "양식"
+            st.session_state.candidates = foods["양식"].copy()
+            random.shuffle(st.session_state.candidates)
+            st.session_state.page = "worldcup"
+            st.experimental_rerun()
+    with col2:
+        if st.button("일식"):
+            st.session_state.category = "일식"
+            st.session_state.candidates = foods["일식"].copy()
+            random.shuffle(st.session_state.candidates)
+            st.session_state.page = "worldcup"
+            st.experimental_rerun()
+    with col3:
+        if st.button("한식"):
+            st.session_state.category = "한식"
+            st.session_state.candidates = foods["한식"].copy()
+            random.shuffle(st.session_state.candidates)
+            st.session_state.page = "worldcup"
             st.experimental_rerun()
 
-# 플레이 페이지
-elif st.session_state.stage == "playing":
-    st.subheader(f"{st.session_state.round_name} 진행중")
+# -------------------------------
+# 월드컵 화면
+# -------------------------------
+elif st.session_state.page == "worldcup":
+    st.title(f"🍜 {st.session_state.category} 월드컵")
+    candidates = st.session_state.candidates
 
-    current_pair = st.session_state.current_round[st.session_state.match_index:st.session_state.match_index+2]
+    if len(candidates) > 1:
+        food1, food2 = candidates[0], candidates[1]
+        st.subheader(f"Round {st.session_state.round}")
 
-    if len(current_pair) == 2:
         col1, col2 = st.columns(2)
         with col1:
-            if st.button(current_pair[0]):
-                st.session_state.next_round.append(current_pair[0])
-                st.session_state.match_index += 2
+            if st.button(food1, use_container_width=True):
+                st.session_state.candidates = candidates[1:]  # food1 선택
+                st.session_state.round += 1
                 st.experimental_rerun()
         with col2:
-            if st.button(current_pair[1]):
-                st.session_state.next_round.append(current_pair[1])
-                st.session_state.match_index += 2
+            if st.button(food2, use_container_width=True):
+                st.session_state.candidates = [food1] + candidates[2:]  # food2 선택
+                st.session_state.round += 1
                 st.experimental_rerun()
-    elif len(current_pair) == 1:
-        # 마지막 홀수일 때
-        if st.button(current_pair[0]):
-            st.session_state.next_round.append(current_pair[0])
-            st.session_state.match_index += 1
-            st.experimental_rerun()
-    else:
-        # 라운드 끝
-        if len(st.session_state.next_round) == 1:
-            st.session_state.winner = st.session_state.next_round[0]
-            st.session_state.stage = "finished"
-            st.experimental_rerun()
-        else:
-            # 다음 라운드 준비
-            st.session_state.current_round = st.session_state.next_round
-            st.session_state.next_round = []
-            st.session_state.match_index = 0
-            if len(st.session_state.current_round) == 8:
-                st.session_state.round_name = "8강"
-            elif len(st.session_state.current_round) == 4:
-                st.session_state.round_name = "4강"
-            elif len(st.session_state.current_round) == 2:
-                st.session_state.round_name = "결승"
-            st.experimental_rerun()
 
-# 끝 페이지
-elif st.session_state.stage == "finished":
-    st.subheader("🏆 최종 이상형 음식 🏆")
-    st.success(f"🎉 {st.session_state.winner} 🎉")
-    st.balloons()  # 풍선 애니메이션
+    else:
+        st.success(f"🎉 최종 우승 음식은 {candidates[0]} 입니다!")
+        if st.button("다시하기"):
+            st.session_state.page = "home"
+            st.session_state.round = 1
+            st.experimental_rerun()
