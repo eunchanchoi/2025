@@ -84,7 +84,7 @@ with col2:
             st.experimental_rerun()
 
 # 우승자 화면
-elif st.session_state.stage == "winner":
-    st.title("🏆 최종 우승!")
-    st.image(st.session_state.food_list[0]["img"], use_column_width=True)
-    st.subheader(st.session_state.food_list[0]["name"])
+    elif st.session_state.stage == "winner":
+        st.title("🏆 최종 우승!")
+        st.image(st.session_state.food_list[0]["img"], use_column_width=True)
+        st.subheader(st.session_state.food_list[0]["name"])
