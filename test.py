@@ -21,7 +21,7 @@ foods = {
         ("라면", "images/ramyeon.jpg"),
         ("칼국수", "images/kalguksu.jpg"),
         ("제육볶음", "images/jeyuk.jpg"),
-        ("콩나물국밥", "images/kongnamul.jpg"),
+        ("콩나물국밥", "images/gokbap.jpg"),
     ],
     "양식": [
         ("피자", "images/pizza.jpg"),
