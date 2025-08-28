@@ -40,30 +40,7 @@ if "round" not in st.session_state:
 # -------------------------------
 if st.session_state.page == "home":
     st.title("🍴 음식 이상형 월드컵")
-    st.subheader("원하는 카테고리를 선택하세요!")
 
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        if st.button("양식"):
-            st.session_state.category = "양식"
-            st.session_state.candidates = foods["양식"].copy()
-            random.shuffle(st.session_state.candidates)
-            st.session_state.page = "worldcup"
-            st.experimental_rerun()
-    with col2:
-        if st.button("일식"):
-            st.session_state.category = "일식"
-            st.session_state.candidates = foods["일식"].copy()
-            random.shuffle(st.session_state.candidates)
-            st.session_state.page = "worldcup"
-            st.experimental_rerun()
-    with col3:
-        if st.button("한식"):
-            st.session_state.category = "한식"
-            st.session_state.candidates = foods["한식"].copy()
-            random.shuffle(st.session_state.candidates)
-            st.session_state.page = "worldcup"
-            st.experimental_rerun()
 
 # -------------------------------
 # 월드컵 화면
