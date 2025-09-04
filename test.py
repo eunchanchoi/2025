@@ -139,15 +139,17 @@ def tournament_page():
         col1, col2 = st.columns(2)
         
         with col1:
-            st.image(food1["image"], caption=food1["name"], use_container_width=True)
             if st.button(f"🥇 {food1['name']}", use_container_width=True, type="primary"):
                 select_winner(food1)
+            st.image(food1["image"], caption=food1["name"], use_container_width=True)
+            
         
         with col2:
-            st.image(food2["image"], caption=food2["name"], use_container_width=True)
             if st.button(f"🥇 {food2['name']}", use_container_width=True, type="primary"):
                 select_winner(food2)
     
+            st.image(food2["image"], caption=food2["name"], use_container_width=True)
+            
     # 홈으로 돌아가기 버튼
     if st.button("🏠 처음으로 돌아가기"):
         reset_tournament()
@@ -182,8 +184,9 @@ def result_page():
     
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        st.image(winner["image"], caption=f"👑 {winner['name']}", use_container_width=True)
         st.markdown(f"### 🥇 {winner['name']}")
+        st.image(winner["image"], caption=f"👑 {winner['name']}", use_container_width=True)
+        
     
     st.markdown("---")
     
