@@ -12,22 +12,22 @@ st.set_page_config(
 # 음식 데이터 (로컬 이미지 사용)
 FOOD_DATA = {
     "한식": [
-        {"name": "김치찌개", "image": "kimchi"},
-        {"name": "불고기", "image": "images/korean/bulgogi.jpg"},
-        {"name": "비빔밥", "image": "images/korean/bibimbap.jpg"},
-        {"name": "삼겹살", "image": "images/korean/samgyeopsal.jpg"},
-        {"name": "냉면", "image": "images/korean/naengmyeon.jpg"},
-        {"name": "갈비", "image": "images/korean/galbi.jpg"},
-        {"name": "떡볶이", "image": "images/korean/tteokbokki.jpg"},
-        {"name": "치킨", "image": "images/korean/chicken.jpg"},
-        {"name": "김밥", "image": "images/korean/kimbap.jpg"},
-        {"name": "순두부찌개", "image": "images/korean/sundubu_jjigae.jpg"},
-        {"name": "잡채", "image": "images/korean/japchae.jpg"},
-        {"name": "제육볶음", "image": "images/korean/jeyuk_bokkeum.jpg"},
-        {"name": "된장찌개", "image": "images/korean/doenjang_jjigae.jpg"},
-        {"name": "막국수", "image": "images/korean/makguksu.jpg"},
-        {"name": "족발", "image": "images/korean/jokbal.jpg"},
-        {"name": "보쌈", "image": "images/korean/bossam.jpg"}
+        {"name": "김치찌개", "image": "kimchi.jpeg"},
+        {"name": "불고기", "image": "bulgogi.jpeg"},
+        {"name": "비빔밥", "image": "bibimbap.jpeg"},
+        {"name": "삼겹살", "image": "samgyeopsal.jpeg"},
+        {"name": "냉면", "image": "naengmyeon.jpeg"},
+        {"name": "갈비찜", "image": "galbijjim.jpeg"},
+        {"name": "떡볶이", "image": "tteokbokki.jpeg"},
+        {"name": "국밥", "image": "gokbap.jpeg"},
+        {"name": "김밥", "image": "gimbap.jpeg"},
+        {"name": "순두부찌개", "image": "soondubu.jpeg"},
+        {"name": "잡채", "image": "japchae.jpeg"},
+        {"name": "제육볶음", "image": "jeyuk.jpeg"},
+        {"name": "라면", "image": "ramyeon.jpeg"},
+        {"name": "파전", "image": "pajeon.jpeg"},
+        {"name": "삼계탕", "image": "samgyetang.jpeg"},
+        {"name": "칼국수", "image": "kalguksu.jpeg"}
     ],
     "양식": [
         {"name": "스테이크", "image": "images/western/steak.jpg"},
