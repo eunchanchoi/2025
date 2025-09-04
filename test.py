@@ -38,7 +38,7 @@ FOOD_DATA = {
         {"name": "샐러드", "image": "salad.jpeg"},
         {"name": "오믈렛", "image": "omelet.jpeg"},
         {"name": "샌드위치", "image": "sandwich.jpeg"},
-        {"name": "치킨 윙", "image": "chicken_wing.jpeg"},
+        {"name": "치킨 윙", "image": "chicken.wing.jpeg"},
         {"name": "타코", "image": "taco.jpeg"},
         {"name": "부리또", "image": "burrito.jpeg"},
         {"name": "그라탱", "image": "gratin.jpeg"},
