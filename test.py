@@ -14,7 +14,7 @@ FOOD_DATA = {
     "한식": [
         {"name": "김치찌개", "image": "kimchi.jpeg"},
         {"name": "불고기", "image": "bulgogi.jpeg"},
-        {"name": "비빔밥", "image": "bibimbap.jpeg"},
+        {"name": "비빔밥", "image": "bibimbap.jpg"},
         {"name": "삼겹살", "image": "samgyeopsal.jpeg"},
         {"name": "냉면", "image": "naegmyeon.jpeg"},
         {"name": "갈비찜", "image": "galbijjim.jpeg"},
