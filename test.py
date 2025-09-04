@@ -48,22 +48,22 @@ FOOD_DATA = {
         {"name": "라자냐", "image": "lasagna.jpeg"}
     ],
     "일식": [
-        {"name": "초밥", "image": "images/japanese/sushi.jpg"},
-        {"name": "라멘", "image": "images/japanese/ramen.jpg"},
-        {"name": "우동", "image": "images/japanese/udon.jpg"},
-        {"name": "돈카츠", "image": "images/japanese/donkatsu.jpg"},
-        {"name": "텐동", "image": "images/japanese/tendon.jpg"},
-        {"name": "소바", "image": "images/japanese/soba.jpg"},
-        {"name": "야키토리", "image": "images/japanese/yakitori.jpg"},
-        {"name": "오니기리", "image": "images/japanese/onigiri.jpg"},
-        {"name": "가라아게", "image": "images/japanese/karaage.jpg"},
-        {"name": "규동", "image": "images/japanese/gyudon.jpg"},
-        {"name": "타코야키", "image": "images/japanese/takoyaki.jpg"},
-        {"name": "모츠나베", "image": "images/japanese/motsu_nabe.jpg"},
-        {"name": "카레라이스", "image": "images/japanese/curry_rice.jpg"},
-        {"name": "나가사키 짬뽕", "image": "images/japanese/nagasaki_champon.jpg"},
-        {"name": "스키야키", "image": "images/japanese/sukiyaki.jpg"},
-        {"name": "치라시", "image": "images/japanese/chirashi.jpg"}
+        {"name": "초밥", "image": "sushi.jpeg"},
+        {"name": "라멘", "image": "ramen.jpeg"},
+        {"name": "우동", "image": "udon.jpeg"},
+        {"name": "돈카츠", "image": "donkatsu.jpeg"},
+        {"name": "텐동", "image": "tendon.jpeg"},
+        {"name": "소바", "image": "soba.jpeg"},
+        {"name": "야키토리", "image": "yakitori.jpeg"},
+        {"name": "오니기리", "image": "onigiri.jpeg"},
+        {"name": "가라아게", "image": "karaage.jpeg"},
+        {"name": "규동", "image": "gyudon.jpeg"},
+        {"name": "타코야키", "image": "takoyaki.jpeg"},
+        {"name": "모츠나베", "image": "motsunabe.jpeg"},
+        {"name": "카레라이스", "image": "curryrice.jpeg"},
+        {"name": "나가사키 짬뽕", "image": "nagasakichampon.jpeg"},
+        {"name": "스키야키", "image": "sukiyaki.jpeg"},
+        {"name": "치라시", "image": "chirashi.jpeg"}
     ]
 }
 
